@@ -3,10 +3,6 @@
 ## Main discourse docker location.
 discourse_docker_path: /var/discourse
 
-## List of emails that will be made admin and developer on initial signup.
-discourse_developer_emails:
-  - me@example.com
-
 ## The domain name this Discourse instance will respond to.
 discourse_hostname: 'discourse.example.com'
 

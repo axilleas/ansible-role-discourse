@@ -1,5 +1,6 @@
 ---
 # tasks file for discourse
+- include_vars: private.yml
 
 - include: swap.yml
   when: ansible_memtotal_mb|int < 2000
