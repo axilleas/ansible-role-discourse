@@ -7,7 +7,7 @@
 
 - name: Generate SSH key for the Discourse Docker container
   shell: mkdir -p ~/.ssh && ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
-    creates: ~/.ssh/id_rsa.pub
+         creates=~/.ssh/id_rsa.pub
 
 - name: Create Discourse Docker path
   file:
@@ -26,7 +26,7 @@
 
 - name: Make ssl directory
   file:
-    path: "{{ discourse_docker_path }}"/shared/standalone/ssl/
+    path: "{{ discourse_docker_path }}/shared/standalone/ssl/"
     state: directory
 
 - name: Copy SSL certificates
@@ -41,7 +41,7 @@
 - name: Copy application yaml
   template:
     src: app.yml.j2
-    dest: "{{ discourse_docker_path }}"/containers/app.yml
+    dest: "{{ discourse_docker_path }}/containers/app.yml"
     owner: root
     group: root
     mode: 644
