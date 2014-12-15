@@ -31,7 +31,7 @@
 
 - name: Copy SSL certificates
   copy:
-    src: "{{ item }}"
+    src: "ssl/{{ item }}"
     dest: "{{ discourse_docker_path }}/shared/standalone/ssl/{{ item }}"
   with_items:
     - ssl.key
