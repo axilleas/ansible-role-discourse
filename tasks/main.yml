@@ -1,0 +1,48 @@
+---
+# tasks file for discourse
+
+- include: swap.yml
+  when: ansible_memtotal_mb|int < 2000
+
+- name: Generate SSH key for the Discourse Docker container
+  shell: mkdir -p ~/.ssh && ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
+    creates: ~/.ssh/id_rsa.pub
+
+- name: Create Discourse Docker path
+  file:
+    path: "{{ discourse_docker_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 755
+
+- name: Clone discourse_docker repo
+  git:
+    repo: "{{ discourse_docker_git_repo }}"
+    version: master
+    dest: "{{ discourse_docker_path }}"
+    accept_hostkey: yes
+
+- name: Make ssl directory
+  file:
+    path: "{{ discourse_docker_path }}"/shared/standalone/ssl/
+    state: directory
+
+- name: Copy SSL certificates
+  copy:
+    src: "{{ item }}"
+    dest: "{{ discourse_docker_path }}/shared/standalone/ssl/{{ item }}"
+  with_items:
+    - ssl.key
+    - ssl.crt
+  when: (discourse_ssl_nginx and discourse_ssl_docker) is defined
+
+- name: Copy application yaml
+  template:
+    src: app.yml.j2
+    dest: "{{ discourse_docker_path }}"/containers/app.yml
+    owner: root
+    group: root
+    mode: 644
+  notify:
+    launcher rebuild
