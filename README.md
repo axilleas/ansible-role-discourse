@@ -51,7 +51,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: axilleas.discourse, discourse_hostname: 'talk.example.com' }
+         - { role: axil42.discourse, discourse_hostname: 'talk.example.com' }
 
 License
 -------
