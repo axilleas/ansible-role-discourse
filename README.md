@@ -15,7 +15,7 @@ Role Variables
 --------------
 
 In` defaults/main.yml` you will find variables that you normally don't need to
-edit. In `vars/main.yml` there are variables like the hostname or the smpt
+edit. In `vars/main.yml` there are variables like the hostname or the SMTP
 server that you must change.
 
 Place any variables that contain sensitive information in `vars/private.yml`.
@@ -26,14 +26,14 @@ Dependencies
 
 Discourse depends solely on docker. There are multiple docker roles in Ansible
 Galaxy, but not a single one that binds all the supported distributions
-together.
+together. Find the one that supports your distribution and use that.
 
 Tasks
 -----
 
 Apart from the main task that installs Discourse, another one called
 `swap.yml` is provided. If your server has less than 2GB RAM, a swap file
-is created and the appropriate kernel parameters are set.
+is automatically created and the appropriate kernel parameters are set.
 
 Scripts
 -------
